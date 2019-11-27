@@ -8,7 +8,7 @@
 public class RegenBlockZaehler {
     public static void main (String[] args) {
         Block block = new Block();
-        System.out.println ("___Regenblockzähler___");
+        System.out.println ("___Regenblockzähler___" + "\n");
         int[] a;                                              //Dieses Array hält die Höhen zu den jeweiligen Breitenstellen
         int b;                                                //Breite
         int h = 0;                                            //Summe aller Wasserblöcke   
