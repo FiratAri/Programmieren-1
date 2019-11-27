@@ -2,20 +2,26 @@
 *Lösung der Pflichtaufgabe auf Blatt 2
 *
 *@author Firat Ari
-*@version 1.0
+*@version 2.0
 */
-import java.util.Scanner;
 
-public class RegenBlockZähler {
+public class RegenBlockZaehler {
     public static void main (String[] args) {
-        Scanner eingabe = new Scanner(System.in);
         Block block = new Block();
         System.out.println ("___Regenblockzähler___");
         int[] a;                                              //Dieses Array hält die Höhen zu den jeweiligen Breitenstellen
         int b;                                                //Breite
-        int h = 0;                                            //Summe aller Wasserblöcke        
-        System.out.print ("Feldbreite (von 1 bis ....): ");
-        b = eingabe.nextInt();
+        int h = 0;                                            //Summe aller Wasserblöcke   
+        int k = 0;                                            //Maximalhöhe
+        b = args.length;                                      //Breite wird gesetzt
+        /**
+        *Die Maximalhöhe wird gesetzt
+        */
+        for (int t=0; t<b; t++) {
+            if (k<Integer.parseInt(args[t])) {
+                k = Integer.parseInt(args[t]);                
+            }
+        }
         /**
         *Fehlerbehandlung bei falscher Eingabe
         */
@@ -24,17 +30,16 @@ public class RegenBlockZähler {
             return;
         }
         a=new int[(b + 1)];
-        int [] [] c = new int [11] [(b + 1)];               //Die Höhe ist der erste Wert;Die Breite der Zweite
+        int [] [] c = new int [(k + 1)] [(b + 1)];               //Die Höhe ist der erste Wert;Die Breite der Zweite
         /**
-        *Nun werden an den einzelnen Breitenstellen die Höhen ermittelt
+        *Nun werden an den einzelnen Breitenstellen die Höhen zugeordnet
         */
         for (int e = 1; e <= b; e++) {
-            System.out.print ("Bitte Höhe (von 1 bis 10) an der Stelle " + e + " eingeben: ");
-            a[e] = eingabe.nextInt();
+            a[e] = Integer.parseInt(args[(e - 1)]);
             /**
             *Fehlerbehandlung bei falscher Eingabe
             */
-            if (a[e] < 1 || a[e] > 10) {
+            if (a[e] < 1) {
                 System.out.println ("Ungültig");
                 return;                
             }       
@@ -47,14 +52,14 @@ public class RegenBlockZähler {
             for (int d = 1; d <= a[e]; d++) {
                 c[d][e] = 0;                           //z.B. Block in der Höhe d und Breitenstelle e ist 0 (also ein Erdblock)
             }
-            for (int d = (a[e]+1); d <= 10; d++) {
+            for (int d = (a[e]+1); d <= k; d++) {
                 c[d][e] = 2;                           //Hier werden Luftblöcke gemacht
             }                  
         }
         /**
         *Drucken der Blöcke ohne Wasser
         */
-        for (int d = 10; d > 0; d--) {
+        for (int d = k; d > 0; d--) {
             for (int e = 1; e <= b; e++) {
                 System.out.print (block.blockDrucken(c[d][e]));
             }            
@@ -69,7 +74,7 @@ public class RegenBlockZähler {
         *wieder einen Erdblock finden, dann machen wir aus dem Luftblock
         *einen Wasserblock
         */
-        for (int d = 10; d > 0; d--) {
+        for (int d = k; d > 0; d--) {
             for (int e = 1; e <= b; e++) {
                 if (c[d][e] == 2) {                         //Luftblock gefunden
                     for (int f = e; f >= 1; f--) {          //Nach links gehen bis Erdblock gefunden wird
@@ -85,10 +90,10 @@ public class RegenBlockZähler {
             }            
         }        
         /**
-        *Wir drucken die Blöcke wieder wie von Zeile 57-62
+        *Wir drucken die Blöcke wieder wie von Zeile 62-67
         */
         System.out.println ();           //Abstandhalter
-        for (int d = 10; d > 0; d--) {
+        for (int d = k; d > 0; d--) {
             for (int e = 1; e <= b; e++) {
                 System.out.print (block.blockDrucken(c[d][e]));
             }            
@@ -101,7 +106,7 @@ public class RegenBlockZähler {
         *unserer Variable
         */
         System.out.println ();           //Abstandhalter
-        for (int d = 10; d > 0; d--) {
+        for (int d = k; d > 0; d--) {
             for (int e = 1; e <= b; e++) {
                 if (c[d][e] == 1) {
                     h = h + 1;
