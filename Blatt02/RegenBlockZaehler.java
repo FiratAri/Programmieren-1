@@ -24,8 +24,8 @@ public class RegenBlockZaehler {
         /**
         *Die Maximalhöhe wird gesetzt
         */
-        for (int t=1; t<=b; t++) {                            //args[] enthält b+1 Elemente
-            if (k<Integer.parseInt(args[t])) {
+        for (int t = 1; t <= b; t++) {                           //args[] enthält b+1 Elemente
+            if (k < Integer.parseInt(args[t])) {
                 k = Integer.parseInt(args[t]);                
             }
         }
