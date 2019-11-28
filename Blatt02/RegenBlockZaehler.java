@@ -13,21 +13,21 @@ public class RegenBlockZaehler {
         int b;                                                //Breite
         int h = 0;                                            //Summe aller Wasserblöcke   
         int k = 0;                                            //Maximalhöhe
-        b = args.length;                                      //Breite wird gesetzt
-        /**
-        *Die Maximalhöhe wird gesetzt
-        */
-        for (int t=0; t<b; t++) {
-            if (k<Integer.parseInt(args[t])) {
-                k = Integer.parseInt(args[t]);                
-            }
-        }
+        b = Integer.parseInt(args[0]);                        //Breite wird gesetzt
         /**
         *Fehlerbehandlung bei falscher Eingabe
         */
-        if (b < 1) {
+        if (b < 1 || args.length > (b+1) || args.length < (b+1)) {
             System.out.println ("Ungültig");
             return;
+        }
+        /**
+        *Die Maximalhöhe wird gesetzt
+        */
+        for (int t=1; t<=b; t++) {                            //args[] enthält b+1 Elemente
+            if (k<Integer.parseInt(args[t])) {
+                k = Integer.parseInt(args[t]);                
+            }
         }
         a=new int[(b + 1)];
         int [] [] c = new int [(k + 1)] [(b + 1)];               //Die Höhe ist der erste Wert;Die Breite der Zweite
@@ -35,11 +35,11 @@ public class RegenBlockZaehler {
         *Nun werden an den einzelnen Breitenstellen die Höhen zugeordnet
         */
         for (int e = 1; e <= b; e++) {
-            a[e] = Integer.parseInt(args[(e - 1)]);
+            a[e] = Integer.parseInt(args[e]);
             /**
             *Fehlerbehandlung bei falscher Eingabe
             */
-            if (a[e] < 1) {
+            if (a[e] < 0) {
                 System.out.println ("Ungültig");
                 return;                
             }       
