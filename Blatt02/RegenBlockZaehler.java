@@ -29,7 +29,7 @@ public class RegenBlockZaehler {
                 k = Integer.parseInt(args[t]);                
             }
         }
-        a=new int[(b + 1)];
+        a = new int[(b + 1)];
         int [] [] c = new int [(k + 1)] [(b + 1)];               //Die Höhe ist der erste Wert;Die Breite der Zweite
         /**
         *Nun werden an den einzelnen Breitenstellen die Höhen zugeordnet
