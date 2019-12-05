@@ -7,13 +7,13 @@
 public class Zelle {
     int[][] spielfeld;
     int breitenStelle;
-    int höhenStelle;
+    int hoehenStelle;
     int kontrollwert = 0;
     public Zelle (int a, int b) {
         spielfeld = new int [(a+1)] [(b+1)];                    //Erster Wert ist die Breite; Zweiter die Höhe
         breitenStelle = a;
-        höhenStelle = b;
-        for (b = höhenStelle; b >= 1; b--) {                    //Beginnt an Höhe höhenStelle;Arbeitet Breiten von 1 bis breitenStelle
+        hoehenStelle = b;
+        for (b = hoehenStelle; b >= 1; b--) {                   //Beginnt an Höhe höhenStelle;Arbeitet Breiten von 1 bis breitenStelle
             for (a = 1; a <= breitenStelle; a++) {              //durch, dann weiter bei Höhe höhenStelle-1 usw.
                 spielfeld [a] [b] = 0;                          //0 steht für leere Zelle
             }
@@ -29,7 +29,7 @@ public class Zelle {
         }
     }
     public void spielfeldDrucken () {
-        for (int b = höhenStelle; b >= 1; b--) {                //Beginnt an Höhe höhenStelle;Arbeitet Breiten von 1 bis breitenStelle
+        for (int b = hoehenStelle; b >= 1; b--) {               //Beginnt an Höhe höhenStelle;Arbeitet Breiten von 1 bis breitenStelle
             for (int a = 1; a <= breitenStelle; a++) {          //durch, dann weiter bei Höhe höhenStelle-1 usw.
                 switch (spielfeld [a] [b]) {                    //Wenn man bei der Höhe mit 1 anfängt dreht man die Reihenachse um
                     case 0:                                     //Also Reihe 1 würde dann oben und nicht unten beginnen
@@ -62,7 +62,7 @@ public class Zelle {
         /**
         *Hier wird eine Übereinstimmung innerhalb einer Reihe gesucht
         */
-        for (int b = höhenStelle; b >= 1; b--) {                   
+        for (int b = hoehenStelle; b >= 1; b--) {                   
             for (int a = 1; a <= breitenStelle; a++) {            
                 kontrollwert = kontrollwert + spielfeld [a] [b];
                 if (spielfeld [a] [b] == 0) {
@@ -79,7 +79,7 @@ public class Zelle {
         *Hier wird eine Übereinstimmung innerhalb einer Spalte gesucht
         */
         for (int a = 1; a <= breitenStelle; a++) {
-            for (int b = höhenStelle; b >= 1; b--) {
+            for (int b = hoehenStelle; b >= 1; b--) {
                 kontrollwert = kontrollwert + spielfeld [a] [b];
                 if (spielfeld [a] [b] == 0) {
                     kontrollwert = -20;
@@ -94,7 +94,7 @@ public class Zelle {
         /**
         *Hier wird eine Übereinstimmung innerhalb einer Diagonalen gesucht
         */
-        for (int a = 1, b = höhenStelle; a <= höhenStelle && b >=1; a++, b--) {
+        for (int a = 1, b = hoehenStelle; a <= hoehenStelle && b >=1; a++, b--) {
             kontrollwert = kontrollwert + spielfeld [a] [b];
             if (spielfeld [a] [b] == 0) {
                 kontrollwert = -20;
@@ -105,7 +105,7 @@ public class Zelle {
             } else {
                 kontrollwert = 0;
         }
-        for (int a = 1; a <= höhenStelle; a++) {
+        for (int a = 1; a <= hoehenStelle; a++) {
             kontrollwert = kontrollwert + spielfeld [a] [a];
             if (spielfeld [a] [a] == 0) {
                 kontrollwert = -20;
@@ -122,7 +122,7 @@ public class Zelle {
     *Bei Unentschieden hat keine Zelle den Wert 0
     */
     public boolean unentschiedenPruefen () {
-        for (int b = höhenStelle; b >= 1; b--) {                   
+        for (int b = hoehenStelle; b >= 1; b--) {                   
             for (int a = 1; a <= breitenStelle; a++) {            
                 if (spielfeld [a] [b] == 0) {
                     return false;
