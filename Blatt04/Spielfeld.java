@@ -19,13 +19,8 @@ public class Spielfeld {
     final int minenAnzahl;
     final int initialeFelder;
     Zelle [] [] zelle;               //Das Array gibt die Zellenart an jeder Koordinate aus
-    public Mine [] mine;                     //Das Array enthält alle Minen
-    public FreiesFeld [] freiesFeld;         //Das Array enthält alle Freien Felder
     Random random = new Random();
     
-    public Spielfeld referenzAusgeben() {
-        return this;
-    }
     public Spielfeld (int groesse, int minenAnzahl, int initialeFelder) {
         this.groesse = groesse;
         this.minenAnzahl = minenAnzahl;
@@ -45,18 +40,18 @@ public class Spielfeld {
         for (int a = 0; a < groesse; a++) {            
             for (int b = 0; b < groesse; b++) {                 
                 while (nichtZugeordnet) {                               //Geht solange weiter bis Zellenart zugeordnet wurde
-                    c = random.nextInt(3);                              //Drei Zufallszahlen                   
+                    c = random.nextInt(4);                              //Drei Zufallszahlen                   
                     if (c == 0 && d > 0) {                              //solange bis alle Minen zugeordnet sind
                         zelle [a] [b] = new Mine (a, b);                //Die Zelle mit Koordinaten a und b ist eine Mine 
                         d--;                                            //nächste Mine
                         nichtZugeordnet = false;
                     }     
-                    if (c == 1 && e > 0) {
+                    if (c >= 2 && e > 0) {
                         zelle [a] [b] = new FreiesFeld(a, b);           //Diese Zelle ist ein freies Feld
                         e--;                                            //nächstes Feld                       
                         nichtZugeordnet = false;
                     }
-                    if (c == 2 && f > 0) {
+                    if (c == 1 && f > 0) {
                         zelle [a] [b] = new FreiesFeld(a, b); 
                         zelle [a] [b].zelleBetreten();                  //Diese Zelle ist also schon aufgedeckt(betreten)
                         f--;                       
@@ -107,11 +102,11 @@ public class Spielfeld {
     public void spielfeldDrucken() {
         int c = 0;                                                          //Reihennummerierung
         String e = "      ";
-        for (int d = 65; d < groesse + 65; d++) {                          //Spaltenbuchstaben
+        for (int d = 65; d < groesse + 65; d++) {                           //Spaltenbuchstaben
             e += Character.toString((char) d);
             e += "    ";
         }
-        System.out.println (e);          //JE NACH GRÖẞE BUCHSTABEN DRUCK FÜR SPALTE
+        System.out.println (e);         
         for (int a = 0; a < groesse; a++) {
             System.out.print (c + " | ");
             c++;

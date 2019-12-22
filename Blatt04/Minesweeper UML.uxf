@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>5</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>210</x>
+      <y>250</y>
+      <w>125</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>/Abstract Zelle/
+--
++koordinate1 : int
++koordinate2 : int
++umgebungsminen : int
+--
++zelleEntschaerfen() : abstract void
++zelleBetreten() : abstract void
++zelleDrucken() : abstract void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>0</x>
+      <y>340</y>
+      <w>175</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>FreiesFeld
+--
+#betreten : boolean
+--
++FreiesFeld (koordinate1 : int, koordinate2 : int)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>20</x>
+      <y>200</y>
+      <w>155</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Mine
+--
+#entschaerft : boolean
+--
++Mine (koordinate1 : int, koordinate2 : int)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>440</x>
+      <y>250</y>
+      <w>260</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>Spielfeld
+--
+GROESSE : int {readOnly}
+MINENANZAHL : int {readOnly}
+INITIALEFELDER : int {readOnly}
+zelle : Zelle [GROESSE] [GROESSE]
+--
++Spielfeld (groesse : int, minenAnzahl : int, initialeFelder : int)
++felderSetzen() : void
++spielfeldDrucken() : void
++zellenAktion (koordinate1 : int, koordinate2 : int, aktion : int) : boolean
++spielGewonnenPruefen() : boolean
++zellenOeffnen() : void
++zellenEinmalOffenDrucken() : void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>170</x>
+      <y>310</y>
+      <w>50</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>170</x>
+      <y>230</y>
+      <w>50</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>80.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>330</x>
+      <y>240</y>
+      <w>120</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;instantiate&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;220.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>830</x>
+      <y>250</y>
+      <w>130</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>Spielereingabe
+--
++groesse : int
++minenAnzahl : int
++initialeFelder : int
++aktion : int
++koordinate1 : int
++koordinate2 : int
+--
++spielfeldFelderSetzen() : void
++spielfeldDrucken() : void
++eingabeGroesse() : void
++eingabeMinenAnzahl() : void
++eingabeInitialeFelder() : void
++eingabeAktion() : void
++spielfeldInitialisieren() : void
++koordinatenEingabe() : boolean
++zellenAktion() : boolean
++spielGewonnenPruefen() : boolean
++zellenOeffnen() : void
++zellenEinmalOffenDrucken() : void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>695</x>
+      <y>240</y>
+      <w>145</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;instantiate&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;270.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1075</x>
+      <y>250</y>
+      <w>135</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Spielerbegleitung
+--
+--
+_+main (args : String[]) : void_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>955</x>
+      <y>240</y>
+      <w>130</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;instantiate&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;240.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>545</x>
+      <y>145</y>
+      <w>50</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>Random</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>565</x>
+      <y>155</y>
+      <w>60</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;instantiate&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>890</x>
+      <y>155</y>
+      <w>60</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;instantiate&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>870</x>
+      <y>145</y>
+      <w>50</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>Scanner</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

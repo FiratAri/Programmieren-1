@@ -28,7 +28,7 @@ public class Spielereingabe {
     *wie z.B. groesse = 7,aber verminte Felder = 100,
     *werden auch erkannt
     */
-    public int eingabeGroesse() {                 //Ausnahmebehandlung noch mal überarbeiten
+    public void eingabeGroesse() {                 //Ausnahmebehandlung noch mal überarbeiten
         boolean kontrollwert = true;                         //Darf nicht null sein, weil beim Compilieren eine Fehlermeldung kommt,
         do {                                                 //obwohl es eigentlich nicht nötig ist
             try {
@@ -41,10 +41,9 @@ public class Spielereingabe {
                 System.out.print ("Ungültige Eingabe. Erneuter Versuch: ");
                 kontrollwert = true;
             }
-        } while (kontrollwert);  
-        return groesse;  
+        } while (kontrollwert);    
     }
-    public int eingabeMinenAnzahl() {                 
+    public void eingabeMinenAnzahl() {                 
         boolean kontrollwert = true;
         do {
             try {
@@ -58,9 +57,8 @@ public class Spielereingabe {
                 kontrollwert = true;
             }
         } while (kontrollwert);    
-        return minenAnzahl;
     }
-    public int eingabeInitialeFelder() {                 
+    public void eingabeInitialeFelder() {                 
         boolean kontrollwert = true;
         do {
             try {
@@ -73,8 +71,7 @@ public class Spielereingabe {
                 System.out.print ("Ungültige Eingabe. Erneuter Versuch: ");
                 kontrollwert = true;
             }
-        } while (kontrollwert); 
-        return initialeFelder;   
+        } while (kontrollwert);   
     }
     /**
     *Aktionseingabe mit Fehlerbehandlung
@@ -88,7 +85,7 @@ public class Spielereingabe {
                 aktion = 3;                              //aktion wird 3 gesetzt, damit die untere
             }                                            //Fehlermeldung eintritt
             if (aktion != 1 && aktion != 2) {
-                System.out.print ("Ungültige Eingabe. Erneuter Versuch");
+                System.out.print ("Ungültige Eingabe. Erneuter Versuch: ");
                 kontrollwert = true;
             } else {
                 kontrollwert = false;

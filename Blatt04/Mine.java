@@ -4,8 +4,8 @@
 *@author Firat Ari
 *@version 1.0
 */
-public class Mine extends Zelle {//
-    protected boolean entschaerft = true;  //ZU TESTZWECKEN AUF TRUE GESTELLT
+public class Mine extends Zelle {
+    protected boolean entschaerft = false;
     
     public Mine (int koordinate1, int koordinate2) { 
         this.koordinate1 = koordinate1;

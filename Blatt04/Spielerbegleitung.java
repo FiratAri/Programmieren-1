@@ -39,7 +39,7 @@ public class Spielerbegleitung {
                         System.out.print ("entschärfen?: ");
                 }
             } while (spielereingabe.koordinatenEingabe());
-            if (spielereingabe.zellenAktion()) {                    //Wenn true dann wurde auf Mine getreten
+            if (spielereingabe.zellenAktion()) {                    //Wenn true, dann wurde auf Mine getreten
                 spielereingabe.zellenOeffnen();                     //Diese Methode ist redundant, wegen zellenEinmalOffenDrucken()
                 spielereingabe.spielfeldDrucken();
                 System.out.println ("Es wurde auf eine unentschärfte Mine getreten. Das Spiel ist verloren");
