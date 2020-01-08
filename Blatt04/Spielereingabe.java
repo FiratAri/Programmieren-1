@@ -21,9 +21,9 @@ public class Spielereingabe {
     *wie z.B. groesse = 7,aber verminte Felder = 100,
     *werden auch erkannt
     */
-    public void eingabeGroesse() {                 //Ausnahmebehandlung noch mal überarbeiten
-        boolean kontrollwert = true;                         //Darf nicht null sein, weil beim Compilieren eine Fehlermeldung kommt,
-        do {                                                 //obwohl es eigentlich nicht nötig ist
+    public void eingabeGroesse() {                 
+        boolean kontrollwert = true;                                     //Darf nicht null sein, weil beim Compilieren eine
+        do {                                                             //Fehlermeldung kommt, obwohl es eigentlich nicht nötig ist
             try {
                 groesse = eingabe.nextInt();
                 kontrollwert = false;
