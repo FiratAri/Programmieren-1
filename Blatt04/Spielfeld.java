@@ -42,7 +42,7 @@ public class Spielfeld {
         for (int a = 0; a < groesse; a++) {            
             for (int b = 0; b < groesse; b++) {                 
                 while (nichtZugeordnet) {                               //Geht solange weiter bis Zellenart zugeordnet wurde
-                    c = random.nextInt(4);                              //Drei Zufallszahlen                   
+                    c = random.nextInt(4);                              //Vier Zufallszahlen                   
                     if (c == 0 && d > 0) {                              //solange bis alle Minen zugeordnet sind
                         zelle [a] [b] = new Mine (a, b);                //Die Zelle mit Koordinaten a und b ist eine Mine 
                         d--;                                            //nächste Mine
