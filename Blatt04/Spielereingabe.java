@@ -15,13 +15,6 @@ public class Spielereingabe {
     
     Scanner eingabe = new Scanner(System.in);
     Spielfeld spielfeld;
-    
-    public void spielfeldFelderSetzen() {
-        spielfeld.felderSetzen();
-    }
-    public void spielfeldDrucken() {
-        spielfeld.spielfeldDrucken();
-    }
     /**
     *Es folgen die Eingabemethoden.
     *Zu große Felder und unlogische Eingaben, 
@@ -37,7 +30,7 @@ public class Spielereingabe {
             } catch (Exception e) {
                 groesse = 24;                                            //Triggert untere Fehlermeldung
             }
-            if (groesse > 24) {                                      //Maximalgröße nur 24, weil nur 24 Buchstaben benutzt werden
+            if (groesse > 24 || groesse == 0) {                          //Maximalgröße nur 24, weil nur 24 Buchstaben benutzt werden
                 System.out.print ("Ungültige Eingabe. Erneuter Versuch: ");
                 kontrollwert = true;
             }
@@ -82,8 +75,8 @@ public class Spielereingabe {
             try {
                 aktion = eingabe.nextInt();
             } catch (Exception e) {
-                aktion = 3;                              //aktion wird 3 gesetzt, damit die untere
-            }                                            //Fehlermeldung eintritt
+                aktion = 3;                                                 //aktion wird 3 gesetzt, damit die untere
+            }                                                               //Fehlermeldung eintritt
             if (aktion != 1 && aktion != 2) {
                 System.out.print ("Ungültige Eingabe. Erneuter Versuch: ");
                 kontrollwert = true;
@@ -101,13 +94,14 @@ public class Spielereingabe {
     /**
     *Koordinateneingabe lesen wie aus dem Aufgabenblatt 4
     *ACHTUNG: WENN DIE EINGABE FEHLERHAFT IST WIRD DIE NÄCHSTE
-    *EINGABE AUFGRUND VON ZEILE 116 VERWORFEN. MAN MUSS ALSO
-    *EINMAL ENTER DRÜCKEN UND KANN DANN ERST DIE KOORDINATEN EINGEBEN
+    *EINGABE AUFGRUND VON ZEILE 102 VERWORFEN. MAN MUSS ALSO
+    *NACH DER FEHLERMELDUNG EINMAL ENTER DRÜCKEN UND KANN DANN 
+    *ERST DIE KOORDINATEN EINGEBEN
     */
     public boolean koordinatenEingabe() {
         eingabe.nextLine();// \n, welches bei Eingabe der Aktion entsteht (beim Enter drücken) wird verbraucht
         String b = eingabe.nextLine();
-        koordinate2 = b.charAt(0) - 65;                                   //Siehe ASCII-Tabelle
+        koordinate2 = b.charAt(0) - 65;                                      //Siehe ASCII-Tabelle
         koordinate1 = b.charAt(1) - 48;
         if (koordinate2 < 0 || koordinate2 >= groesse || koordinate1 < 0 || koordinate1 >= groesse) {
             System.out.println ("Ungültige Eingabe. Erneuter Versuch");
@@ -121,18 +115,5 @@ public class Spielereingabe {
         } else {
             return false;
         }
-    }
-    public boolean spielGewonnenPruefen() {
-        if (spielfeld.spielGewonnenPruefen()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    public void zellenOeffnen() {
-        spielfeld.zellenOeffnen();
-    }
-    public void zellenEinmalOffenDrucken() {
-        spielfeld.zellenEinmalOffenDrucken();
     }
 }

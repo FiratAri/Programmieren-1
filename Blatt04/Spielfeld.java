@@ -3,9 +3,11 @@
 *
 *@author Firat Ari
 *@version 1.0
+*
     b b b b
     = = = =
     0 1 2 3 .....
+    ________
 a=0|1 2 3 4
 a=1|5 6 .. ...
 a=2|
@@ -106,9 +108,13 @@ public class Spielfeld {
             e += Character.toString((char) d);
             e += "    ";
         }
-        System.out.println (e);         
+        System.out.println (e);                                             //Spaltenbuchstaben werden gedruckt
         for (int a = 0; a < groesse; a++) {
-            System.out.print (c + " | ");
+            if (c < 10) {                                                   //Reihennummerierung wird gedruckt
+                System.out.print (c + " | ");                               
+            } else {
+                System.out.print (c + "| ");
+            }
             c++;
             for (int b = 0; b < groesse; b++) {
                 zelle [a] [b].zelleDrucken();
@@ -125,10 +131,10 @@ public class Spielfeld {
                 zelle [koordinate1] [koordinate2].zelleBetreten();
                 if (zelle [koordinate1] [koordinate2] instanceof Mine) {
                     Mine mine = (Mine) zelle [koordinate1] [koordinate2];     //Zelle wird gecasted
-                    if (mine.entschaerft) {
+                    if (mine.entschaerft) {                                   //Ist die Mine die betreten wird entschaerft?
                         return false;                                                
                     } else {
-                        return true;                                                
+                        return true;                                                    
                     } 
                 }
                 break;
@@ -139,7 +145,7 @@ public class Spielfeld {
         return false;                                                     //Dieser Fall tritt nicht ein, wird aber zum compilieren benötigt
     }
     /**
-    *Das Spiel ist gewonnen wenn jede die
+    *Das Spiel ist gewonnen, wenn alle
     *booleans betreten (für FreiesFeld) bzw.
     *entschärft (für Mine) == true sind.
     */
@@ -169,21 +175,6 @@ public class Spielfeld {
             }
         }
         return true;
-    }
-    /**
-    *Jede Zelle Mine wird entschärft und
-    *jedes FreieFeld betreten
-    */
-    public void zellenOeffnen() {
-        for (int a = 0; a < groesse; a++) {
-            for (int b = 0; b < groesse; b++) {
-                if (zelle [a] [b] instanceof Mine) {
-                    zelle [a] [b].zelleEntschaerfen();
-                } else {
-                    zelle [a] [b].zelleBetreten();
-                }
-            }
-        }
     }
     public void zellenEinmalOffenDrucken() {
         for (int a = 0; a < groesse; a++) {

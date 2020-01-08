@@ -4,14 +4,12 @@
 *@author Firat Ari
 *@version 1.0
 */
-public class Spielerbegleitung {
-    
+public class Spielerbegleitung {  
     public static void main (String[] args) {
         Spielereingabe spielereingabe = new Spielereingabe(); 
         /**                                                      
         *Spielfeldparametereingabe und Spielfeldinitialisierung
         */
-        //REFERENZEN BENUTZEN UND NICHT ALLES ÜBER SPIELEREINGABE MACHEN
         System.out.println ("___Minesweeper___");
         System.out.print ("Bitte geben Sie die Größe des Feldes ein: ");
         spielereingabe.eingabeGroesse();
@@ -20,13 +18,23 @@ public class Spielerbegleitung {
         System.out.print ("Bitte geben Sie die Anzahl der Initialfelder ein: ");
         spielereingabe.eingabeInitialeFelder();
         spielereingabe.spielfeldInitialisieren();       
-        spielereingabe.spielfeldFelderSetzen();
+        /**
+        *Wir erschaffen eine Referenz auf das Objekt Spielfeld,
+        *um auf die Methoden der Klasse Spielfeld zuzugreifen. Die
+        *Referenz ist aber die Gleiche wie die des Objektes Spielfeld,
+        *welches von Spielereingabe erschaffen wurde, sodass die Veränderungen,
+        *die Spielereingabe an diesem Objekt vornimmt direkt 
+        *genutzt werden. Spielereingabe und Spielerbegleitung nutzen
+        *also das selbe Objekt Spielfeld.
+        */
+        Spielfeld spielfeld = spielereingabe.spielfeld;       
+        spielfeld.felderSetzen();   
         /**
         *Spielbeginn
         */
-        spielereingabe.zellenEinmalOffenDrucken();                  //Zellen werden einmal offen gedruckt und wieder geschlossen
+        spielfeld.zellenEinmalOffenDrucken();                      //Zellen werden einmal offen gedruckt und wieder geschlossen
         while (true) {
-            spielereingabe.spielfeldDrucken();
+            spielfeld.spielfeldDrucken();   
             System.out.print ("Welche Aktion soll durchgeführt werden (1 Feld betreten;2 entschärfen): ");
             spielereingabe.eingabeAktion();
             do {
@@ -40,13 +48,12 @@ public class Spielerbegleitung {
                 }
             } while (spielereingabe.koordinatenEingabe());
             if (spielereingabe.zellenAktion()) {                    //Wenn true, dann wurde auf Mine getreten
-                spielereingabe.zellenOeffnen();                     //Diese Methode ist redundant, wegen zellenEinmalOffenDrucken()
-                spielereingabe.spielfeldDrucken();
+                spielfeld.zellenEinmalOffenDrucken();
                 System.out.println ("Es wurde auf eine unentschärfte Mine getreten. Das Spiel ist verloren");
                 return;
             }
-            if (spielereingabe.spielGewonnenPruefen()) {            //Bei gewonnenem Spiel ist das Spielfeld schon offen
-                spielereingabe.spielfeldDrucken();
+            if (spielfeld.spielGewonnenPruefen()) {                 //Bei gewonnenem Spiel ist das Spielfeld schon offen
+                spielfeld.spielfeldDrucken();
                 System.out.println ("Das Spiel ist gewonnen");
                 return;
             }
