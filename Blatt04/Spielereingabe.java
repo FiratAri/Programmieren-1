@@ -18,7 +18,7 @@ public class Spielereingabe {
     /**
     *Es folgen die Eingabemethoden.
     *Zu große Felder und unlogische Eingaben, 
-    *wie z.B. groesse = 7,aber verminte Felder = 100,
+    *wie z.B. groesse = 7, aber verminte Felder = 100,
     *werden auch erkannt
     */
     public void eingabeGroesse() {                 
@@ -74,6 +74,7 @@ public class Spielereingabe {
         do {
             try {
                 aktion = eingabe.nextInt();
+                eingabe.nextLine();                                         //\n wird verbraucht. Tastaturpuffer ist also leer
             } catch (Exception e) {
                 aktion = 3;                                                 //aktion wird 3 gesetzt, damit die untere
             }                                                               //Fehlermeldung eintritt
@@ -93,16 +94,17 @@ public class Spielereingabe {
     }
     /**
     *Koordinateneingabe lesen wie aus dem Aufgabenblatt 4
-    *ACHTUNG: WENN DIE EINGABE FEHLERHAFT IST WIRD DIE NÄCHSTE
-    *EINGABE AUFGRUND VON ZEILE 102 VERWORFEN. MAN MUSS ALSO
-    *NACH DER FEHLERMELDUNG EINMAL ENTER DRÜCKEN UND KANN DANN 
-    *ERST DIE KOORDINATEN EINGEBEN
     */
     public boolean koordinatenEingabe() {
-        eingabe.nextLine();// \n, welches bei Eingabe der Aktion entsteht (beim Enter drücken) wird verbraucht
         String b = eingabe.nextLine();
         koordinate2 = b.charAt(0) - 65;                                      //Siehe ASCII-Tabelle
         koordinate1 = b.charAt(1) - 48;
+        if (b.length() == 3) {                                               //koordinate1 ist zweistellig
+            koordinate1 = koordinate1 * 10 + b.charAt(2) - 48;
+        } else if (b.length() > 3) {                                         //Fehlermeldung bei zu langer Eingabe
+            System.out.println ("Ungültige Eingabe. Erneuter Versuch");
+            return true;
+        }
         if (koordinate2 < 0 || koordinate2 >= groesse || koordinate1 < 0 || koordinate1 >= groesse) {
             System.out.println ("Ungültige Eingabe. Erneuter Versuch");
             return true;
