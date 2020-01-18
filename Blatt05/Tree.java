@@ -76,53 +76,29 @@ public class Tree {
         }
     }
     */
-    /**
-    *Return (return Links gucken | return rechts gucken)
-    *wenn mindestens ein Wert true rausgibt bzw. <= 0 || > 0
-    *+1 zum ergebnis addieren, Wenn beide true sind dann -1
-    *
-    *ODER man nutzt die funktion exists und macht es iterativ (ES muss aber rekursiv sein)
-    *Die Höhe height ist für jeden Pfad zunächst 0. Pro Pfad wird height eins gesetzt und zu
-    *heigth der aufrufenden Methode addiert. Hat die aufrufenden Methode zwei Pfade, wird
-    *height dekrementiert
-    *
-
-        ALTE VERSION
-        int height = 0;
-        if (lch.value <= 0 || lch.value > 0) {               //Linker Pfad existiert
-            (lch.height()).height = 1;                       //Höhe ist also auf 1 zu setzen
-            height += return (lch.height()).height;          //addiere 1 zu Höhe 
-        }
-        if (rch.value <= 0 || rch.value > 0) {               //Rechter Pfad existiert
-            (rch.height()).height = 1;                       //Höhe ist also auf 1 zu setzen
-            height += return (rch.height()).height;          //addiere 1 zu Höhe
-        }
-        if ((lch.value <= 0 || lch.value > 0) && (rch.value <= 0 || rch.value > 0)) {
-            height--;
-        }
-        return (heigth + 1);
-    */
     public int heigth () {
         int heigth = 1;
-        if (lch != null) {                                   //Linker Pfad existiert
-            heigth += lch.heigth();                          //addiere Höhe des Unterbaums zu Höhe 
+        if (lch != null && rch == null) {                                         //Nur linker Pfad existiert
+            heigth += lch.heigth();                                               //addiere Höhe des Unterbaums zu Höhe 
         }
-        if (rch != null) {                                   //Rechter Pfad existiert
-            heigth += rch.heigth();                          //addiere Höhe des Unterbaums zu Höhe
+        if (rch != null && lch == null) {                                         //Nur rechter Pfad existiert
+            heigth += rch.heigth();                                               //addiere Höhe des Unterbaums zu Höhe
         }
-        if (lch != null && rch != null) {
-            heigth--;                                        //Bei zwei Pfaden, dekrementiere Höhe
+        if ((lch != null && rch != null) && rch.heigth() >= lch.heigth()) {       //Beide Pfade existieren; Rechts höher/gleich
+            heigth += rch.heigth();                                               //Höhe ist rechte Unterbaumhöhe
+        } else if ((lch != null && rch != null) && rch.heigth() < lch.heigth()) { //Beide Pfade existieren; Links höher
+            heigth += lch.heigth();                                               //Höhe ist linke Unterbaumhöhe
         }
-        return heigth;                                       //Höhe ist Anzahl der Pfade plus 1
+        return heigth;                                       
     }
     public boolean exists (int value) {
-        if (this.value < value) {                            //Gesuchter Wert ist kleiner als Knotenwert
+        if (this.value > value) {                            //Gesuchter Wert ist kleiner als Knotenwert
             if (lch != null) {                               //Wenn ein linker Knoten existiert,
                 return lch.exists (value);                   //dann den linken Knoten kontrollieren (Rekursion)
             } else {                                         //Wenn kein linker Knoten existiert,
                 return false;                                //dann kann der Wert nicht im Baum sein
             }
-        } else if (this.value > value) {
+        } else if (this.value < value) {
             if (rch != null) {                               //Wenn ein rechter Knoten existiert,
                 return rch.exists (value);                   //dann den rechten Knoten kontrollieren (Rekursion)
             } else {                                         //Wenn kein rechter Knoten existiert,
@@ -139,29 +115,38 @@ public class Tree {
     }
     public int max () {
         if (rch != null) {                                   //Wenn ein rechter Knoten existiert
-            return rch.min();                                //gibt das max() vom rechten Knoten aus (Rekursion)
+            return rch.max();                                //gibt das max() vom rechten Knoten aus (Rekursion)
         }                                                    //Wenn kein rechter Knoten (größerer Wert) existiert,
         return value;                                        //gib den Wert des aktuellen Knoten aus
     }
     /**
     *Wert drucken dann für rechten und linken Knoten toString anwenden (Rekursion)
+    *Drucken Linker Knoten (Rekursiv, also linker Knoten.toString), Drucken value,
+    *Drucken Rechter Knoten (Rekursiv, wie links)
     */
- //   public String toString () {
-        
-   // }
+    public String toString () {
+        String a = "";
+        if (lch != null) {
+            a += "(" + lch.toString() + ")";
+        }
+        a += " " + value + " ";
+        if (rch != null) {
+            a += "(" + rch.toString() + ")";
+        }
+        return a;
+    }
     public boolean isDegenerate () {
         if (value <= 0 || value > 0) {
-            if (lch != null && rch != null) {                                                //Knoten hat zwei Pfade
-                return false;                                                                //also Baum ist nicht entartet
-            } else if (rch != null) {                                                        //Nur rechter Pfad vorhanden
-                return rch.isDegenerate ();                                                  //rechten Knoten prüfen (Rekursion)
-            } else if (lch != null) {                                                        //Nur linker Pfad vorhande
-                return lch.isDegenerate ();                                                  //linken Knoten prüfen (Rekursion)
-            } else {                                                                         //Kein Pfad vorhanden
-                return true;                                                                 //also Baum ist entartet
+            if (lch != null && rch != null) {                //Knoten hat zwei Pfade
+                return false;                                //also Baum ist nicht entartet
+            } else if (rch != null) {                        //Nur rechter Pfad vorhanden
+                return rch.isDegenerate ();                  //rechten Knoten prüfen (Rekursion)
+            } else if (lch != null) {                        //Nur linker Pfad vorhande
+                return lch.isDegenerate ();                  //linken Knoten prüfen (Rekursion)
+            } else {                                         //Kein Pfad vorhanden
+                return true;                                 //also Baum ist entartet
             }
-        }                                                                                    //Kein Wurzelknoten vorhanden
-        return true;                                                                         //also Baum ist entartet
-    }
-    
+        }                                                    //Kein Wurzelknoten vorhanden
+        return true;                                         //also Baum ist entartet
+    }   
 }
