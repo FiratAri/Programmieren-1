@@ -54,16 +54,16 @@ public class Tree {
         }
         return (heigth + 1);
     */
-    public int height () {
-        int height = 1;
+    public int heigth () {
+        int heigth = 1;
         if (lch.value <= 0 || lch.value > 0) {               //Linker Pfad existiert
-            height += return lch.height();                   //addiere Höhe des Unterbaums zu Höhe 
+            heigth += return lch.heigth();                   //addiere Höhe des Unterbaums zu Höhe 
         }
         if (rch.value <= 0 || rch.value > 0) {               //Rechter Pfad existiert
-            height += return rch.height();                   //addiere Höhe des Unterbaums zu Höhe
+            heigth += return rch.heigth();                   //addiere Höhe des Unterbaums zu Höhe
         }
         if ((lch.value <= 0 || lch.value > 0) && (rch.value <= 0 || rch.value > 0)) {
-            height--;                                        //Bei zwei Pfaden, dekrementiere Höhe
+            heigth--;                                        //Bei zwei Pfaden, dekrementiere Höhe
         }
         return heigth;                                       //Höhe ist Anzahl der Pfade plus 1
     }
