@@ -25,11 +25,46 @@ public class Tree {
 			System.out.println ("Wert bereits vorhanden");
 		}
     }
-    public void insertIterative (int insertion) {
-		
+    public void insertIterative (int insertion) {          
+		if ()
     }
+    /**
+    *Return (return Links gucken | return rechts gucken)
+    *wenn mindestens ein Wert true rausgibt bzw. <= 0 || > 0
+    *+1 zum ergebnis addieren, Wenn beide true sind dann -1
+    *
+    *ODER man nutzt die funktion exists und macht es iterativ (ES muss aber rekursiv sein)
+    *Die Höhe height ist für jeden Pfad zunächst 0. Pro Pfad wird height eins gesetzt und zu
+    *heigth der aufrufenden Methode addiert. Hat die aufrufenden Methode zwei Pfade, wird
+    *height dekrementiert
+    *
+    *WÄRE NICHT DAS BESSER BZW. ÜBERHAUPT ERST RICHTIG
+    int height = 0;
+		if (lch.value <= 0 || lch.value > 0) {				 //Linker Pfad existiert
+		   	height += return lch.height();////////          //addiere 1 zu Höhe 
+		}
+		if (rch.value <= 0 || rch.value > 0) {               //Rechter Pfad existiert
+			height += return rch.height(); ////////////          //addiere 1 zu Höhe
+		}
+		if ((lch.value <= 0 || lch.value > 0) && (rch.value <= 0 || rch.value > 0)) {
+			height--;
+		}
+		return (heigth + 1);                                 //Höhe ist Anzahl der Pfade plus 1
+    */
     public int height () {
-		
+    	int height = 0;
+		if (lch.value <= 0 || lch.value > 0) {				 //Linker Pfad existiert
+			(lch.height()).height = 1;						 //Höhe ist also auf 1 zu setzen
+		   	height += return (lch.height()).height;          //addiere 1 zu Höhe 
+		}
+		if (rch.value <= 0 || rch.value > 0) {               //Rechter Pfad existiert
+			(rch.height()).height = 1;						 //Höhe ist also auf 1 zu setzen
+			height += return (rch.height()).height;          //addiere 1 zu Höhe
+		}
+		if ((lch.value <= 0 || lch.value > 0) && (rch.value <= 0 || rch.value > 0)) {
+			height--;
+		}
+		return (heigth + 1);                                 //Höhe ist Anzahl der Pfade plus 1
     }
     public boolean exists (int value) {
 		if (this.value < value) {							//Gesuchter Wert ist kleiner als Knotenwert
@@ -48,16 +83,16 @@ public class Tree {
 		return true;                                        //der Knotenwert ist, dann existiert er im Knotenwert
     }
     public int min () {
-		if (lch.value <= 0 || lch.value > 0) {      //Wenn ein linker Knoten existiert
-			return lch.min();                       //gibt das min() vom linken Knoten aus (Rekursion)
-		}											//Wenn kein linker Knoten (kleinerer Wert) existiert,
-		return value;                         	    //gib den Wert des aktuellen Knoten aus
+		if (lch.value <= 0 || lch.value > 0) {     		    //Wenn ein linker Knoten existiert
+			return lch.min();                      		    //gibt das min() vom linken Knoten aus (Rekursion)
+		}													//Wenn kein linker Knoten (kleinerer Wert) existiert,
+		return value;                   		      	    //gib den Wert des aktuellen Knoten aus
     }
     public int max () {
-		if (rch.value <= 0 || rch.value > 0) {      //Wenn ein rechter Knoten existiert
-			return rch.min();                       //gibt das max() vom rechten Knoten aus (Rekursion)
-		}											//Wenn kein rechter Knoten (größerer Wert) existiert,
-		return value;                         	    //gib den Wert des aktuellen Knoten aus
+		if (rch.value <= 0 || rch.value > 0) {		        //Wenn ein rechter Knoten existiert
+			return rch.min();                   		    //gibt das max() vom rechten Knoten aus (Rekursion)
+		}													//Wenn kein rechter Knoten (größerer Wert) existiert,
+		return value;                         			    //gib den Wert des aktuellen Knoten aus
     }
     public String toString () {
 		
