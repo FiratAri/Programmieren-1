@@ -31,8 +31,21 @@ public class Tree {
     public int height () {
 		
     }
-    public boolean exists () {
-		
+    public boolean exists (int value) {
+		if (this.value < value) {							//Gesuchter Wert ist kleiner als Knotenwert
+			if (lch.value <= 0 || lch.value > 0) {			//Wenn ein linker Knoten existiert,
+				return lch.exists (value);					//dann den linken Knoten kontrollieren (Rekursion)
+			} else {										//Wenn kein linker Knoten existiert,
+				return false;								//dann kann der Wert nicht im Baum sein
+			}
+		} else if (this.value > value) {
+			if (rch.value <= 0 || rch.value > 0) {			//Wenn ein rechter Knoten existiert,
+				return rch.exists (value);					//dann den rechten Knoten kontrollieren (Rekursion)
+			} else {										//Wenn kein rechter Knoten existiert,
+				return false;								//dann kann der Wert nicht im Baum sein
+			}
+		}													//Wenn der Wert nicht größer oder kleiner als
+		return true;                                        //der Knotenwert ist, dann existiert er im Knotenwert
     }
     public int min () {
 		if (lch.value <= 0 || lch.value > 0) {      //Wenn ein linker Knoten existiert
