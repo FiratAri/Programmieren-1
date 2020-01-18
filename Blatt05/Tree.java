@@ -35,16 +35,33 @@ public class Tree {
 		
     }
     public int min () {
-		
+		if (lch.value <= 0 || lch.value > 0) {      //Wenn ein linker Knoten existiert
+			return lch.min();                       //gibt das min() vom linken Knoten aus (Rekursion)
+		}											//Wenn kein linker Knoten (kleinerer Wert) existiert,
+		return value;                         	    //gib den Wert des aktuellen Knoten aus
     }
     public int max () {
-		
+		if (rch.value <= 0 || rch.value > 0) {      //Wenn ein rechter Knoten existiert
+			return rch.min();                       //gibt das max() vom rechten Knoten aus (Rekursion)
+		}											//Wenn kein rechter Knoten (größerer Wert) existiert,
+		return value;                         	    //gib den Wert des aktuellen Knoten aus
     }
     public String toString () {
 		
     }
     public boolean isDegenerate () {
-		
+		if (value <= 0 || value > 0) {
+        	if ((lch.value <= 0 || lch.value > 0) && (rch.value <= 0 || rch.value > 0)) {    //Knoten hat zwei Pfade
+        		return false;															     //also Baum ist nicht entartet
+        	} else if (rch.value <= 0 || rch.value > 0) {                                    //Nur rechter Pfad vorhanden
+        		return rch.isDegenerate ();													 //rechten Knoten prüfen (Rekursion)
+        	} else if (lch.value <= 0 || lch.value > 0) {									 //Nur linker Pfad vorhande
+        		return lch.isDegenerate ();													 //linken Knoten prüfen (Rekursion)
+        	} else {																		 //Kein Pfad vorhanden
+        		return true;																 //also Baum ist entartet
+        	}
+		}	    																			 //Kein Wurzelknoten vorhanden
+		return true;																	     //also Baum ist entartet
     }
     
 }
