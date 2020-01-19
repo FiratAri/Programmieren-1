@@ -12,6 +12,10 @@ public class Tree {
     Tree (int value) {
         this.value = value;
     }
+    /**
+    *__Lösung Unterpunkt 1__
+    *
+    */
     public void insert (int insertion) {
         if (value != insertion) {
             if (insertion < value) {                        //Wert kleiner als Knoten also nach links gehen
@@ -32,6 +36,8 @@ public class Tree {
         }
     }
     /**
+    *__UNGELÖST Unterpunkt 2__
+    *
     *Antwort zu Frage, ob insert oder insertIterative
     *schwieriger zu implementieren war: Es war bei der
     *iterativen Methode wesentlich schwieriger den richtigen
@@ -96,6 +102,10 @@ public class Tree {
             System.out.println("Wert existiert bereits im Baum");
         }
     }   
+    /**
+    *__Lösung Unterpunkt 3 (1)__
+    *
+    */
     public int heigth () {
         int heigth = 1;
         if (lch != null && rch == null) {                                         //Nur linker Pfad existiert
@@ -111,6 +121,10 @@ public class Tree {
         }
         return heigth;                                       
     }
+    /**
+    *__Lösung Unterpunkt 3 (2)__
+    *
+    */
     public boolean exists (int value) {
         if (this.value > value) {                            //Gesuchter Wert ist kleiner als Knotenwert
             if (lch != null) {                               //Wenn ein linker Knoten existiert,
@@ -127,6 +141,10 @@ public class Tree {
         }                                                    //Wenn der Wert nicht größer oder kleiner als
         return true;                                         //der Knotenwert ist, dann existiert er im Knotenwert
     }
+    /**
+    *__Lösung Unterpunkt 3 (3)&(4)__
+    *
+    */
     public int min () {
         if (lch != null) {                                   //Wenn ein linker Knoten existiert
             return lch.min();                                //gibt das min() vom linken Knoten aus (Rekursion)
@@ -140,9 +158,8 @@ public class Tree {
         return value;                                        //gib den Wert des aktuellen Knoten aus
     }
     /**
-    *Wert drucken dann für rechten und linken Knoten toString anwenden (Rekursion)
-    *Drucken Linker Knoten (Rekursiv, also linker Knoten.toString), Drucken value,
-    *Drucken Rechter Knoten (Rekursiv, wie links)
+    *__Lösung Unterpunkt 4__
+    *
     */
     public String toString () {
         String a = "";
@@ -155,6 +172,10 @@ public class Tree {
         }
         return a;
     }
+    /**
+    *__Lösung Unterpunkt 5__
+    *
+    */
     public boolean isDegenerate () {
         if (value <= 0 || value > 0) {
             if (lch != null && rch != null) {                //Knoten hat zwei Pfade
@@ -169,4 +190,39 @@ public class Tree {
         }                                                    //Kein Wurzelknoten vorhanden
         return true;                                         //also Baum ist entartet
     }   
+    /**
+    *__Lösung Unterprunkt 6__
+    *Die Methode benötigt zur Definition einen integer
+    *und einen Vergleich.
+    *_________________________________________________
+    *Berechnungsreihenfolge:
+    *1. Wenn die Berechnung mit dem Knotenwert falsch ergibt,
+    *   gib falsch aus.
+    *2. Wenn zwei Unterknoten existieren,
+    *   berechne zuerst den rechten Unterknoten (Rekursion).
+    *3. Wenn ein Unterknoten existiert,
+    *   berechne zuerst den Unterknoten (Rekursion).
+    *4. Wenn kein Unterknoten existiert und 1. nicht 
+    *   erfüllt ist muss die Bedingung erfüllt sein. 
+    *   Also gib wahr aus.
+    */
+    boolean forAll (Compare comp) {
+        if (!(comp.forAll(value))) {                         //Wenn der Knotenwert die Bedingung nicht erfüllt,
+            return false;                                    //gib falsch aus. Bei wahr Unterknoten kontrollieren
+        }
+        if (rch != null && lch == null) {                    //Wenn nur rechter Knoten existiert,
+            return rch.forAll(comp);                         //gib Prädikat für rechten Knoten aus (Rekursion)
+        }
+        if (lch != null && rch == null) {                    //Wenn nur linker Knoten existiert,
+            return lch.forAll(comp);                         //gib Prädikat für linken Knoten aus (Rekursion)
+        }               
+        if (lch != null && rch != null) {                    //Wenn beide Knoten existieren,
+            if (rch.forAll(comp) && lch.forAll(comp)) {
+                return true;                                 //gib nur wahr raus, wenn rechterKnoten=wahr & linkerKnoten=wahr
+            } else {
+                return false;                                //Wenn ein Knoten falsch ausgibt, gib falsch aus
+            }
+        }                                                    //Keine Unterknoten und der Knotenwert erfüllt Bedingung
+        return true;                                         //also wahr ausgeben
+    }
 }

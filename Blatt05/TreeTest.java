@@ -11,14 +11,15 @@ public class TreeTest {
         Scanner sc = new Scanner(System.in);
         int eingabe;
         String text;
-        int [] numbers = {4,3,1};
-
+        int [] numbers = {4,3,1,13,14,16};
+        
         for (int a = 0; a < numbers.length; a++) {
             t.insert(numbers[a]);
-        }
+        }        
         System.out.println (t);
-        text = "Aktion (1[insert und drucken]|2[isDegenerate]|";
-        text += "3[exists]|4[min]|5[max]|6[heigth]|7[Beenden]): ";
+        text = "1=[insert und drucken] || 2=[isDegenerate]" + "\n";
+        text += "3=[exists] || 4=[min]" + "\n" + "5=[max] || 6=[heigth]" + "\n";
+        text += "7=[Beenden] || 8=[SindAlleWerte < 20 ?]" + "\n" + "Eingabe: ";
         while(true) {
             System.out.print (text);
             switch (sc.nextInt()) {
@@ -64,6 +65,14 @@ public class TreeTest {
                 break;
                 case 7:
                 System.exit(0);
+                case 8:
+                if (t.forAll ((v) -> v < 20)) {
+                    System.out.println ("Alle Werte sind kleiner als 20");
+                    break;
+                } else {
+                    System.out.println ("Nicht alle Werte sind kleiner als 20");
+                    break;
+                }
                 default:
                 System.out.println ("Falsche Eingabe");
             }
