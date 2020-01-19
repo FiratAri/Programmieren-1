@@ -17,14 +17,24 @@ public class TreeTest {
             t.insert(numbers[a]);
         }
         System.out.println (t);
-        text = "Aktion (1: insert und drucken;2: isDegenerate;";
-        text += "3: exists;4: min;5: max;6: heigth;7: Beenden): ";
+        text = "Aktion (1[insert und drucken]|2[isDegenerate]|";
+        text += "3[exists]|4[min]|5[max]|6[heigth]|7[Beenden]): ";
         while(true) {
             System.out.print (text);
             switch (sc.nextInt()) {
                 case 1:
                 System.out.print ("Einzusetzender Wert: ");
-                t.insert(sc.nextInt());
+                int a = sc.nextInt();
+                System.out.print ("Iterativ(1) oder rekursiv(2): ");
+                int b = sc.nextInt();
+                if (b == 1) {
+                    t.insertIterative(a);
+                } else if (b == 2) {
+                    t.insert(a);
+                } else {
+                    System.out.println ("Falsche Eingabe");
+                    break;
+                }
                 System.out.println (t);
                 break;
                 case 2:

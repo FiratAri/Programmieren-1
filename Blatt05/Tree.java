@@ -32,50 +32,70 @@ public class Tree {
         }
     }
     /**
-    *while   String a = rch bzw lch 
-    *in for schleife  rch.a = new Tree (insertion)
-    *dann rch.a.a = new Tree (insertion) usw.
-    *String wird multipliziert
-    *
-    *SO WERDEN NUR DIE ÄUßEREN PFADE ERREICHT
-    *
-    *DIE OBERE METHODE IST LINEAR-REKURSIV; WIR KÖNNEN SIE MITTELS AKKUMULATORTECHNIK ENDREKURSIV SCHREIBEN
-    *UND DANN KÖNNEN WIR SIE LEICHT IN EINE LOOP UMWANDELN (ENTREKURSIVIEREN)
-    *DIE 
+    *Antwort zu Frage, ob insert oder insertIterative
+    *schwieriger zu implementieren war: Es war bei der
+    *iterativen Methode wesentlich schwieriger den richtigen
+    *Ansatz zu finden. Die rekursive Methode ist meiner Meinung
+    *nach leichter zu verstehen und intuitiver als die iterative
+    *Methode, daher finde ich die rekursive Methode eleganter.
     */
-
-    /**
     public void insertIterative (int insertion) {
-        String a = ".rch";
-        String b = ".lch"; 
-        String d;         
-        for(int c = 0, c <= heigth(); c++) {        //c gibt an wieviele Pfade minimal schon begangen wurden
-            for () {
-                d = 
-                if (insertion == (d + value)) {  ////
-                    System.out.println ("Wert bereits vorhanden");
-                    return;
-                } else if (insertion < (d + value)) {   /////////// //Wert ist kleiner als Knotenwert also nach links gehen
-                    if ((b + d + value) <= 0 || (b + d + value) > 0) {  /////     //Linker Knoten existiert,
-                        continue;       /////                         //dann nächsten Durchgang starten
-                    } else {                                     //Linker Knoten existiert nicht
-                    b = b * c;                        /////ACHTUNG FUNKTIONIERT SO NICHT
-                    (lch + b + d) = new Tree (insertion);     /////     //Linken Knoten erschaffen
-                    return;                                  //Methode beenden
-                    }
-                } else {                                         //Wert ist größer als Knotenwert also nach rechts gehen
-                    if ((a + d + value) <= 0 || (a + d + value) > 0) {       //Rechter Knoten existiert
-                        continue; //////////////                 //Nächsten Durchgang starten
-                    } else {                                     //Rechter Knoten existiert nicht
-                        a = a * c;                      //////////FUNKTIONIERT SO NICHT
-                        (rch + a  + d) = new Tree (insertion); ////////          //Rechten Knoten erschaffen
-                        return;                                  //Methode beenden
-                    }
+        Tree obj = rch;             //Rechte Seite
+        Tree obje = lch;            //Linke Seite
+        /**
+        *Rechter Unterbaum wird kontrolliert
+        */
+        while (insertion > value) {
+            if (obj == null) {
+                obj = new Tree (insertion);                                     //Knoten unbesetzt => Wert einsetzen
+                return;                                                        //Wert eingesetzt, also Schleife beenden
+            }
+            if (insertion > obj.value) {                                        //Wert ist größer als Knotenwert
+                if (obj.value == value) {
+                    obj = rch;             //Wenn Wurzelknote nur rch ohne .
+                } else {
+                    obj = obj.rch;                                                     //Rücke nach rechts
                 }
+            } else if (insertion < obj.value){                                                //insertion < d + value
+                if (obj.value == value) {
+                    obj = lch;
+                } else {
+                    obj = obj.lch;                                                       //also nach links gehen
+                }
+            } else {
+                System.out.println ("Wert existiert bereits im Baum");
+                return;                            
             }
         }
-    }
-    */
+        /**
+        *Linker Unterbaum wird kontrolliert
+        */
+        while (insertion < value) {
+            if (obje == null) {
+                obje = new Tree (insertion);                      //Knoten unbesetzt => Wert einsetzen
+                return;                                            //Wert eingesetzt, also Schleife beenden
+            }
+            if (insertion > obje.value) {                                        //Wert ist größer als Knotenwert
+                if (obje.value == value) {
+                    obje = rch;             //Wenn Wurzelknote nur rch ohne .
+                } else {
+                    obje = obje.rch;                                                     //Rücke nach rechts
+                }
+            } else if (insertion < obje.value){                         //insertion < d + value
+                if (obje.value == value) {
+                    obje = lch;
+                } else {
+                    obje = obje.lch;                                       //also nach links gehen
+                }
+            } else {
+                System.out.println ("Wert existiert bereits im Baum");
+                return;                            
+            }
+        }
+        if (insertion == value) {                                             
+            System.out.println("Wert existiert bereits im Baum");
+        }
+    }   
     public int heigth () {
         int heigth = 1;
         if (lch != null && rch == null) {                                         //Nur linker Pfad existiert
@@ -85,9 +105,9 @@ public class Tree {
             heigth += rch.heigth();                                               //addiere Höhe des Unterbaums zu Höhe
         }
         if ((lch != null && rch != null) && rch.heigth() >= lch.heigth()) {       //Beide Pfade existieren; Rechts höher/gleich
-            heigth += rch.heigth();                                               //Höhe ist rechte Unterbaumhöhe
+            heigth += rch.heigth();                                               //addiere Höhe des rechten Unterbaums zu Höhe
         } else if ((lch != null && rch != null) && rch.heigth() < lch.heigth()) { //Beide Pfade existieren; Links höher
-            heigth += lch.heigth();                                               //Höhe ist linke Unterbaumhöhe
+            heigth += lch.heigth();                                               //addiere Höhe des linken Unterbaums zu Höhe
         }
         return heigth;                                       
     }
@@ -141,7 +161,7 @@ public class Tree {
                 return false;                                //also Baum ist nicht entartet
             } else if (rch != null) {                        //Nur rechter Pfad vorhanden
                 return rch.isDegenerate ();                  //rechten Knoten prüfen (Rekursion)
-            } else if (lch != null) {                        //Nur linker Pfad vorhande
+            } else if (lch != null) {                        //Nur linker Pfad vorhanden
                 return lch.isDegenerate ();                  //linken Knoten prüfen (Rekursion)
             } else {                                         //Kein Pfad vorhanden
                 return true;                                 //also Baum ist entartet
