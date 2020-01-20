@@ -17,7 +17,7 @@ public class Tree {
     *
     */
     public void insert (int insertion) {
-        if (value != insertion) {
+        if (value != insertion) {                           //Wert ist ungleich Knotenwert, suche bei Unterknoten starten
             if (insertion < value) {                        //Wert kleiner als Knoten also nach links gehen
                 if (lch != null) {                          //links bereits besetzt
                     lch.insert (insertion);                 //insert beim linken Knoten durchführen (Rekursion)
@@ -31,7 +31,7 @@ public class Tree {
                     rch = new Tree (insertion);             //Neuen Knoten schaffen
                 }
             }
-        } else {
+        } else {                                            //Wert ist gleich Knotenwert => Keinen Unterknoten erschaffen
             System.out.println ("Wert bereits vorhanden");
         }
     }
@@ -105,6 +105,12 @@ public class Tree {
     /**
     *__Lösung Unterpunkt 3 (1)__
     *
+    *Ein Knoten hat die Höhe eins. Die Höhe ist also
+    *die Höhe des höchsten Unterbaums + 1. Die Methode
+    *wird also rekursiv so oft angewendet bis ein Knoten
+    *keine Unterknoten hat und somit die Höhe 1 an den 
+    *Elternknoten ausgibt, der diese Knotenhöhe zu seiner 
+    *Höhe addiert.
     */
     public int heigth () {
         int heigth = 1;
@@ -124,6 +130,12 @@ public class Tree {
     /**
     *__Lösung Unterpunkt 3 (2)__
     *
+    *Pro Durchgang kontrollieren wir einen Knotenwert.
+    *Ist dieser Knotenwert nicht der gesuchte Wert, führen
+    *wir diesen Kontrolldurchgang abhängig von der Größe des
+    *gesuchten Werts im Vergleich zum jetzigen Knotenwert bei 
+    *dem jeweiligen Unterknoten durch. Ist dieser Unterknoten
+    *nicht vorhanden wird falsch ausgegeben.
     */
     public boolean exists (int value) {
         if (this.value > value) {                            //Gesuchter Wert ist kleiner als Knotenwert
@@ -144,6 +156,12 @@ public class Tree {
     /**
     *__Lösung Unterpunkt 3 (3)&(4)__
     *
+    *Da mit der Position eines Unterknotens, bereits
+    *eine Aussage über seinen Wert gegenüber des
+    *Elternknotens gemacht wird, können wir wie folgt
+    *vorgehen:
+    *Zu min(): Wir suchen den linkesten Knoten
+    *Zu max(): Wir suchen den rechtesten Knoten
     */
     public int min () {
         if (lch != null) {                                   //Wenn ein linker Knoten existiert
@@ -160,6 +178,7 @@ public class Tree {
     /**
     *__Lösung Unterpunkt 4__
     *
+    *Format: (lch.toString) value (rch.toString)
     */
     public String toString () {
         String a = "";
@@ -175,6 +194,11 @@ public class Tree {
     /**
     *__Lösung Unterpunkt 5__
     *
+    *Wir kontrollieren bei jedem Knoten wieviele,
+    *Unterknoten er hat. Bei keinem Unterknoten wird
+    *wahr rausgegeben, bei zwei Unterknoten falsch und
+    *bei einem Unterknoten wird dieselbe Kontrolle bei
+    *bei diesem Unterknoten durchgeführt.
     */
     public boolean isDegenerate () {
         if (value <= 0 || value > 0) {
@@ -192,6 +216,7 @@ public class Tree {
     }   
     /**
     *__Lösung Unterprunkt 6__
+    *
     *Die Methode benötigt zur Definition einen integer
     *und einen Vergleich.
     *_________________________________________________

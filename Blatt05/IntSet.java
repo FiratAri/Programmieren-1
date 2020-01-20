@@ -11,13 +11,12 @@ public class IntSet {
 
     }
     public IntSet (int [] items) {
-        Intset intset = new IntSet();
-        if (items == null) {                              //Wird für union Methode so gemacht
+        if (items == null) {                              //Wurzelknoten existiert noch nicht
             this.items = new Tree (items[0]);             //Erster Wert ist Wurzelknoten 
             for (int a = 1; a < items.length; a++) {
                 insert (items[a]);                        //Werte werden iterativ in den Baum eingefügt
             }
-        } else {
+        } else {                                          //Wurzelknoten existiert schon
             for (int a = 0; a < items.length; a++) {
                 insert (items[a]);
             }
@@ -67,10 +66,40 @@ public class IntSet {
         }
         return intsetIntersection;
     }
+    /**
+    *Diese Methode vergleicht, ob zwei Mengen
+    *identisch sind. Da Bäume trotz identischer
+    *Elemente unterschiedlich aussehen können,
+    *nutzen wir die toString Methode, um die 
+    *Menge genormt auszugeben. Wenn beide Strings
+    *gleich sind, sind die Mengen identisch.
+    */
     public boolean equals (Object x) {
-        
+        if (x instanceof IntSet) {                                            //Ist das Objekt eine Integer Menge?
+            if (toString.equals((IntSet) x.toString)) {                            //Wenn ja, sind die Mengen identisch?
+                return true;                                                  //Wenn ja, wahr ausgeben
+            } else {                                                          //Wenn nein,
+                return false;                                                 //falsch ausgeben
+            }
+        } else {                                                              //Wenn nein,
+            return false;                                                     //falsch ausgeben
+        }
     }
+    /**
+    *Diese Methode gibt die Elemente der Menge
+    *als streng monoton steigende Folge aus.
+    *Die Baumstruktur ist also nicht erkennbar.
+    *Wie grenzen den Suchbereich mit min() und max()
+    *ein und kontrollieren dann mit contains, 
+    *welcher Wert zur Menge gehört
+    */
     public String toString () {
-        
+        String set = "";
+        for (int value = items.min(); value <= items.max(); value++) {        //Suchbereich eingrenzen
+            if (contains (value)) {                                           //Wenn value im Baum ist,
+                set += value + ",";                                           //value zu set hinzufügen
+            }
+        }
+        return set;
     }
 }
