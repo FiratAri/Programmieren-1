@@ -15,6 +15,11 @@ public class Tree {
     /**
     *__Lösung Unterpunkt 1__
     *
+    *Sollte der Wert bereits vorhanden sein, wirft
+    *insert die entsprechende Exception. Wie die 
+    *Exception behandelt wird, hängt von der Benutzung
+    *der Methode ab. Mit dieser Exception flexibilisieren
+    *wir also die Fehlerbehandlung.
     */
     public void insert (int insertion) {
         if (value != insertion) {                           //Wert ist ungleich Knotenwert, suche bei Unterknoten starten
@@ -32,7 +37,7 @@ public class Tree {
                 }
             }
         } else {                                            //Wert ist gleich Knotenwert => Keinen Unterknoten erschaffen
-            System.out.println ("Wert bereits vorhanden");
+            throw new ValueAlreadyPresentException();       //Exception wird geworfen
         }
     }
     /**

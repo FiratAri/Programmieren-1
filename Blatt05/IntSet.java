@@ -11,24 +11,33 @@ public class IntSet {
 
     }
     public IntSet (int [] items) {
-        if (items == null) {                              //Wurzelknoten existiert noch nicht
-            this.items = new Tree (items[0]);             //Erster Wert ist Wurzelknoten 
+        if (items == null) {                                       //Wurzelknoten existiert noch nicht
+            this.items = new Tree (items[0]);                      //Erster Wert ist Wurzelknoten 
             for (int a = 1; a < items.length; a++) {
-                insert (items[a]);                        //Werte werden iterativ in den Baum eingefügt
+                insert (items[a]);                                 //Werte werden iterativ in den Baum eingefügt
             }
-        } else {                                          //Wurzelknoten existiert schon
+        } else {                                                   //Wurzelknoten existiert schon
             for (int a = 0; a < items.length; a++) {
                 insert (items[a]);
             }
         }
     }
     public void insert (int value) {
-        if (items == null) {                               //Wenn es noch keinen Baum gibt, neuen Baum machen
-            items = new Tree (value);                      //mit value als Wurzelknoten
+        if (items == null) {                                       //Wenn es noch keinen Baum gibt, neuen Baum machen
+            items = new Tree (value);                              //mit value als Wurzelknoten
         } else {
-            items.insert(value);  
+            try {
+                items.insert(value);
+            } catch (Exception e) {                                //e ist bei korrekter Eingabe die ValueAlreadyPresentException
+                throw e;
+            }  
         }
     }
+    /**
+    *Wenn Tree (also die Menge) leer ist,
+    *wird eine NullPointerException geworfen,
+    *die wir hier fangen
+    */
     public boolean contains (int value) {
         try {
             return items.exists(value);
@@ -47,30 +56,43 @@ public class IntSet {
     *Wir nutzen die Methoden min() und max(),
     *um zu schauen für welchen Bereich wir mit exists
     *suchen und schließlich mit insert einfügen müssen.
-    *Ich habe die vorgefertigten Exceptions genutzt, weil
-    *diese ihre Aufgabe erfüllen und zudem weniger Arbeit machen
+    *Ich habe teilweise vorgefertigte Exceptions genutzt, weil
+    *diese ihre Aufgabe erfüllen und zudem weniger Arbeit machen.
+    *Die von mir geschriebenen Exception werden lediglich zur 
+    *Fallunterscheidung des entsprechenden Fehlers benötigt.
     */
     public IntSet union (IntSet other) {
         IntSet intsetUnion = new IntSet ();
-        try {
-            for (int a = other.items.min(); a <= other.items.max(); a++) {
-                if (other.contains(a)) {                                            //Enthält der Baum diesen Wert?
-                    intsetUnion.insert(a);                                          //Enthält diesen Wert, also in Baum einfügen
+        if (other == null) {                                                        //Other wurde noch nicht erschaffen
+            throw new NoSetException();                                             //Exception dafür werfen
+        }
+        for (int a = other.items.min(); a <= other.items.max(); a++) {              //Eingrenzung des Suchbereichs
+            try {            
+                if (other.contains(a)) {                                            //Enthält der Baum diesen Wert
+                    intsetUnion.insert(a);                                          //Wenn ja, einsetzen
+                }                                        
+            } catch (Exception e) {
+                if (e instanceof ValueAlreadyPresentException) {                    //Wenn Wert bereits vorhanden,
+                                                                                    //nichts gesondertes machen
+                } else if (e instanceof NullPointerException) {                     //Wenn Menge other leer,
+                                                                                    //nichts gesondertes machen
+                } else {                                                            //Ansonsten ist es
+                    throw new RuntimeException();                                          //ein unbekannter Fehler
                 }
             }
-        } catch (Exception e) {                                                         //Fehler ist aufgetreten
-            if (e instanceof NullPointerException) {                                    //other ist eine leere Menge
-                System.out.println ("Es wurde eine nicht vorhandene Menge übergeben.");
-            } else {                                                                    //anderer Fehler
-                System.out.println ("Es ist ein unbekannter Fehler aufgetreten");
-            }            
-            System.out.println ("Die Vereinigung erfolgt mit der leeren Menge.");
-        } finally {
-            if (items != null) {                                                    //Wenn die Menge nicht leer ist
-                for (int b = items.min(); b <= items.max(); b++) {                  //Elemente der anderen Menge hinzufügen
-                    if (contains(b)) {                                              //Enthält der Baum diesen Wert
+        }
+        if (items != null) {                                                        //Wenn die Menge nicht leer ist
+            for (int b = items.min(); b <= items.max(); b++) {                      //Elemente der anderen Menge hinzufügen
+                if (contains(b)) {                                                  //Enthält der Baum diesen Wert
+                    try {
                         intsetUnion.insert(b);                                      //Wenn ja, Wert in den Baum einfügen
-                    }
+                    } catch (Exception e) {                                         //Bei bereits vorhandenem Wert keine
+                        if (e instanceof ValueAlreadyPresentException) {            //Fehlermeldung senden
+                            
+                        } else {
+                            System.out.println ("Unbekannter Fehler");
+                        }
+                    }                                                               
                 }
             }
         }
@@ -83,20 +105,23 @@ public class IntSet {
     */
     public IntSet intersection (IntSet other) {
         IntSet intsetIntersection = new IntSet ();
-        try {
-            for (int a = other.items.min(); a <= other.items.max(); a++) {
+        if (other == null) {                                                //Other wurde noch nicht erschaffen
+            throw new NoSetException();                                     //Exception dafür werfen
+        }
+        for (int a = other.items.min(); a <= other.items.max(); a++) {
+            try {            
                 if (other.contains(a) && contains(a)) {                     //Enthalten bei dieses Element?
                     intsetIntersection.insert(a);                           //Wenn ja, einsetzen
                 }                                                           //Wenn nein, nichts machen
+            } catch (Exception e) {
+                if (e instanceof ValueAlreadyPresentException) {                //Wenn Wert bereits vorhanden,
+                                                                                //nichts gesondertes machen
+                } else if (e instanceof NullPointerException) {                 //Wenn other die leere Menge ist,
+                    intsetIntersection.items = null;                            //ist der Schnitt = (/)
+                } else {
+                    throw new RuntimeException();                           //Runtime um das "checking" zu vermeiden
+                }
             }
-        } catch (Exception e) {
-            if (e instanceof NullPointerException) {                                    //Fehler ist aufgetreten
-                System.out.println ("Es wurde eine nicht vorhandene Menge übergeben."); //other ist eine leere Menge
-            } else {                                                                    //anderer Fehler
-                System.out.println ("Es ist ein unbekannter Fehler aufgetreten");
-            }
-            System.out.println ("Der Schnitt erfolgt mit der leeren Menge.");
-            intsetIntersection.items = null;
         }
         return intsetIntersection;
     }
