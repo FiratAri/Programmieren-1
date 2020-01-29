@@ -66,20 +66,20 @@ public class IntSet {
         if (other == null) {                                                        //Other wurde noch nicht erschaffen
             throw new NoSetException();                                             //Exception dafür werfen
         }
-        for (int a = other.items.min(); a <= other.items.max(); a++) {              //Eingrenzung des Suchbereichs
-            try {            
-                if (other.contains(a)) {                                            //Enthält der Baum diesen Wert
-                    intsetUnion.insert(a);                                          //Wenn ja, einsetzen
-                }                                        
-            } catch (Exception e) {
+        try {
+            for (int a = other.items.min(); a <= other.items.max(); a++) {          //Eingrenzung des Suchbereichs            
+                    if (other.contains(a)) {                                        //Enthält der Baum diesen Wert
+                        intsetUnion.insert(a);                                      //Wenn ja, einsetzen
+                    }                                        
+            }
+        } catch (Exception e) {
                 if (e instanceof ValueAlreadyPresentException) {                    //Wenn Wert bereits vorhanden,
                                                                                     //nichts gesondertes machen
                 } else if (e instanceof NullPointerException) {                     //Wenn Menge other leer,
                                                                                     //nichts gesondertes machen
                 } else {                                                            //Ansonsten ist es
-                    throw new RuntimeException();                                          //ein unbekannter Fehler
+                    throw new RuntimeException();                                   //ein unbekannter Fehler
                 }
-            }
         }
         if (items != null) {                                                        //Wenn die Menge nicht leer ist
             for (int b = items.min(); b <= items.max(); b++) {                      //Elemente der anderen Menge hinzufügen
@@ -108,20 +108,20 @@ public class IntSet {
         if (other == null) {                                                //Other wurde noch nicht erschaffen
             throw new NoSetException();                                     //Exception dafür werfen
         }
-        for (int a = other.items.min(); a <= other.items.max(); a++) {
-            try {            
-                if (other.contains(a) && contains(a)) {                     //Enthalten bei dieses Element?
-                    intsetIntersection.insert(a);                           //Wenn ja, einsetzen
-                }                                                           //Wenn nein, nichts machen
-            } catch (Exception e) {
-                if (e instanceof ValueAlreadyPresentException) {                //Wenn Wert bereits vorhanden,
-                                                                                //nichts gesondertes machen
-                } else if (e instanceof NullPointerException) {                 //Wenn other die leere Menge ist,
-                    intsetIntersection.items = null;                            //ist der Schnitt = (/)
+        try {
+            for (int a = other.items.min(); a <= other.items.max(); a++) {            
+                    if (other.contains(a) && contains(a)) {                 //Enthalten bei dieses Element?
+                        intsetIntersection.insert(a);                       //Wenn ja, einsetzen
+                    }                                                       //Wenn nein, nichts machen
+            }
+        } catch (Exception e) {
+                if (e instanceof ValueAlreadyPresentException) {            //Wenn Wert bereits vorhanden,
+                                                                            //nichts gesondertes machen
+                } else if (e instanceof NullPointerException) {             //Wenn other die leere Menge ist,
+                    intsetIntersection.items = null;                        //ist der Schnitt = (/)
                 } else {
                     throw new RuntimeException();                           //Runtime um das "checking" zu vermeiden
                 }
-            }
         }
         return intsetIntersection;
     }
@@ -135,7 +135,7 @@ public class IntSet {
     */
     public boolean equals (Object x) {
         if (x instanceof IntSet) {                                            //Ist das Objekt eine Integer Menge?
-            if (toString().equals(((IntSet) x).toString())) {                   //Wenn ja, sind die Mengen identisch?
+            if (toString().equals(((IntSet) x).toString())) {                 //Wenn ja, sind die Mengen identisch?
                 return true;                                                  //Wenn ja, wahr ausgeben
             } else {                                                          //Wenn nein,
                 return false;                                                 //falsch ausgeben

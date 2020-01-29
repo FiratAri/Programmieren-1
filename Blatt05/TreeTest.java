@@ -266,9 +266,10 @@ public class TreeTest {
                         } catch (Exception e) {                                          
                             if (e instanceof NoSetException) {
                                 System.out.println ("Menge 2 wurde noch nicht erschaffen");
-                                System.out.println ("Für diese Operation ist Menge 2 die leere Menge");                        
+                                break;                       
                             } else {
                                 System.out.println ("Es ist ein unbekannter Fehler aufgetreten");
+                                break;
                             }
                         }
                         System.out.print ("Menge 1 ist nun die Vereinigung von Menge 2");
@@ -283,9 +284,10 @@ public class TreeTest {
                         } catch (Exception e) {
                             if (e instanceof NoSetException) {
                                 System.out.println ("Menge 2 wurde noch nicht erschaffen");
-                                System.out.println ("Für diese Operation ist Menge 2 die leere Menge");
+                                break;
                             } else {
                                 System.out.println ("Es ist ein unbekannter Fehler aufgetreten");
+                                break;
                             }
                         }
                         System.out.print ("Menge 1 ist nun der Schnitt von Menge 2");
